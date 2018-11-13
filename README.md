@@ -1,7 +1,7 @@
 # field for Python
 Define 'fields' inside class definition but outside function, just like C++, Java, etc.
 
-This may be useful when you are writing classes which contains lots of attributes managed by different methods, where problems like which attr is defined where could be a headache. It can also make it easier to maintain the __slots__ attr: you can just define fields and the FieldMetaclass will create __slots__ automatically.
+This may be useful when you are writing classes which contains lots of attributes managed by different methods, where problems like which attr is defined where could be a headache. It can also make it easier to maintain the `__slots__` attr: you can just define fields and the FieldMetaclass will create `__slots__` automatically.
 
 This module should work with inheritance, but be careful when using inheritance: naming conflicts won't be reported by the metaclass, which may result in unexpected behavior.
 
