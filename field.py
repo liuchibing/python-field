@@ -18,7 +18,7 @@ class Example(object, metaclass=FieldMetaclass):
         # FieldMetaclass will remove this attr,
         # so the value can be anything.
         # if you define __slots__ here,
-        # the FieldMetaclass will not generate __slots__ anymore, 
+        # the FieldMetaclass will not generate __slots__ anymore,
         # regardless whether or not have you defined __no_slots__.
     my_field = Field() # `None` will be the default value
     my_other = Field(1) # Field with default value `1`
@@ -43,10 +43,10 @@ class Field(object):
     '''
     A placeholder representing a field.
     '''
-    def __init__(self, default=None, *, from_arg=None):
+    def __init__(self, default = None, *, from_arg = None):
         self.default = default
         if not isinstance(from_arg, (int,str,type(None))):
-            raise ValueError('from_arg: expected int or str, got %s' % (type(from_arg).__name__,))
+            raise TypeError('from_arg: expected int or str, got %s' % (type(from_arg).__name__,))
         self.from_arg = from_arg
 
 def _wrap_init(fields, init):
