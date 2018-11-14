@@ -73,7 +73,7 @@ class FieldMetaclass(type):
     def __new__(cls, name, bases, attrs):
         fields = dict()
         no_slots = False
-        
+
         # collect fields information
         for k,v in attrs.items():
             if k == '__no_slots__':
