@@ -54,12 +54,10 @@ def _wrap_init(fields, init):
     def wrapper(self, *args, **kwargs):
         for k,v in fields.items(): # do initialize
             if v.from_arg != None:
-                if isinstance(v.from_arg, int):
-                    if v.from_arg < len(args):
-                         setattr(self,k,args[v.from_arg])
-                elif isinstance(v.from_arg, str):
-                    if v.from_arg in kwargs:
-                         setattr(self,k,kwargs[v.from_arg])
+                if isinstance(v.from_arg, int) and v.from_arg < len(args):
+                    setattr(self,k,args[v.from_arg])
+                elif isinstance(v.from_arg, str) and v.from_arg in kwargs:
+                    setattr(self,k,kwargs[v.from_arg])
             else:
                 setattr(self,k,v.default)
         if callable(init): # call original __init__, if any.
@@ -80,12 +78,12 @@ class FieldMetaclass(type):
                 no_slots = True
             elif isinstance(v, Field):
                 fields[k] = v
-        
+
         if no_slots:
             attrs.pop('__no_slots__')
         for k in fields.keys():
             attrs.pop(k)
-            
+
         # generate a new __init__
         init = attrs.get('__init__')
         attrs['__init__'] = _wrap_init(fields, init)
@@ -103,7 +101,7 @@ class FieldMetaclass(type):
 if __name__ == '__main__':
     print('field')
     print(__doc__)
-    
+
 #    class Test(object,metaclass=FieldMetaclass):
 #        #__no_slots__=None
 #        a=Field(12)
@@ -119,7 +117,7 @@ if __name__ == '__main__':
 #        a2=Field()
 #        def __init__(self):
 #            super(Test2,self).__init__(22,b='b2')
-#    
+#
 #    t = Test(6,b='b')
 #    print(dir(t))
 #    print(Test.__slots__)
